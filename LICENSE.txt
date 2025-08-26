@@ -1,0 +1,15 @@
+budget_tracker - Licence Libre avec Clause Commerciale
+Copyright © 2025 DEV_SASHOTUA
+
+Copyright © 2025 DEV_SASHOTUA- Tous droits réservés.
+
+Ce programme est sous Licence GNU GPL v3, avec clause additionnel restreignant l’usage commercial sans autorisation.
+
+Vous êtes autorisé à utiliser, modifier, distribuer le code à des fin personnelles ou éducatives.
+
+Toute utilisation commercial (revente, distribution, intégration professionnel) est interdite sans autorisation écrite de l'auteur
+
+texte complet : http://www.gnu.org/licences/gpl-3.0.html
+
+contact de l'auteur : sashotua_dev@proton.me
+
