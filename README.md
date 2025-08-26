@@ -15,7 +15,7 @@ Pensée pour un usage **minimaliste, portable, et autonome**.
 
 ### 💠 Fonctionnalités
 
-* Entrée d’un montant (arrondi automatiquement aux **5 XPF** les plus proches)
+* Entrée d’un montant (arrondi automatiquement a l'unité "0" ou "5" les plus proches)
 * Répartition automatique selon le schéma **60/25/15**
 * Stockage dans trois fichiers CSV (`revenu.csv`, `épargne.csv`, `réserve.csv`)
 * Vue directe des **totaux cumulés** et du **dernier ajout** par poste via un `Treeview`
