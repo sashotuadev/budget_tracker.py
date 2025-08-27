@@ -26,20 +26,34 @@ for path in FILES.values():
             w = csv.writer(f, delimiter=';')
             w.writerow(FIELDNAMES)
 
-# === LOGIQUE RÉPARTITION ===
+def arrondi_5_xpf(val: int) -> int:
+    """Arrondi au multiple de 5 le plus proche (…0 ou …5)."""
+    return int(round(val / 5.0) * 5)
+
 def repartir_xpf(montant_xpf: int) -> dict:
     """
-    Retourne un dict {poste: montant} en 60/25/15,
-    avec “Réserve” ajustée pour compenser l'arrondi.
+    Répartit en 60/25/15 avec CHAQUE part multiple de 5.
+    Étapes :
+    1) on arrondit le montant de base à 5
+    2) on calcule Revenu/Épargne arrondis à 5
+    3) Réserve = base - Revenu - Épargne (=> multiple de 5)
+    4) si Réserve < 0 (rare), on rabote la plus grosse part par pas de 5
     """
-    revenu   = int(montant_xpf * 0.60)
-    epargne  = int(montant_xpf * 0.25)
-    reserve  = montant_xpf - revenu - epargne
-    return {"Revenu 60%": revenu, "Épargne 25%": epargne, "Réserve 15%": reserve}
+    base = arrondi_5_xpf(montant_xpf)
 
-def arrondi_5_xpf(val: int) -> int:
-    """Arrondi à 5 (entier)."""
-    return int(round(val / 5.0) * 5)
+    revenu  = arrondi_5_xpf(base * 0.60)
+    epargne = arrondi_5_xpf(base * 0.25)
+    reserve = base - revenu - epargne
+
+    # Sécurité : si l’addition des arrondis dépasse le total, on corrige
+    while reserve < 0:
+        if revenu >= epargne and revenu >= 5:
+            revenu -= 5
+        elif epargne >= 5:
+            epargne -= 5
+        reserve += 5
+
+    return {"Revenu 60%": int(revenu), "Épargne 25%": int(epargne), "Réserve 15%": int(reserve)}
 
 # === CUMULS / IO CSV ===
 def totaliser(path: str) -> int:
@@ -85,7 +99,7 @@ class App:
         top = tk.Frame(root)
         top.pack(fill=tk.X, padx=10, pady=8)
 
-        tk.Label(top, text="Montant (XPF, entier) :").pack(anchor="w")
+        tk.Label(top, text="Montant (entier) :").pack(anchor="w")
         self.montant_var = tk.StringVar()
         tk.Entry(top, textvariable=self.montant_var).pack(fill=tk.X)
 
