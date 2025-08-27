@@ -139,7 +139,7 @@ class App:
             ecrire_ligne(FILES[poste], date_str, montant)
 
         self.montant_var.set("")
-        self.statut.set(f"Répartition enregistrée: Revenu 60% {parts['Revenu']} | Épargne 25% {parts['Épargne']} | Réserve 15% {parts['Réserve']}")
+        self.statut.set(f"Répartition enregistrée: Revenu {parts['Revenu 60%']} | Épargne {parts['Épargne 25%']} | Réserve {parts['Réserve 15%']}")
         self.mettre_a_jour_vue()
 
     def mettre_a_jour_vue(self):
